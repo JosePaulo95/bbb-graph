@@ -5,7 +5,7 @@ const buildPNGGraphGrafic = () => {
   // something better than blue dots:
   graphics.node(function(node) {
       // node.data holds custom object passed to graph.addNode():
-      var url = '../img/tile001.png';
+      var url = '../img/brother'+node.id+'.png';
 
       return Viva.Graph.svg('image')
             .attr('width', 24)
@@ -25,24 +25,36 @@ const buildPNGGraphGrafic = () => {
 
   return graphics
 }
+const addNodes = (graph) => {
+  for (let index = 0; index <= 3; index++) {
+    graph.addNode(index);
+  }
+
+  return graph
+}
 
 function onLoad() {
-  var graph = Viva.Graph.graph();
-  graph.addNode(0, 'eliezer');
-  graph.addNode(1, 'naiara');
-  graph.addNode(2, 'naiara');
-  graph.addNode(3, 'naiara');
+  let graph = Viva.Graph.graph();
+  graph = addNodes(graph)
   // graph.addLink(0, 1);
 
   graphics = buildPNGGraphGrafic()
 
   // Let's construct simple graph:
   // 0 -> 1 -> 2 -> 3 -> 4 -> 5
+  // for (let i = 0; i <= 19; i++) {
+  //   for (let j = 0; j <= 19; j++) {
+  //     graph.addLink(i, j, { connectionStrength: 1 });
+  //   }
+  // }
+
 
   graph.addLink(0, 1, { connectionStrength: 1 });
-  graph.addLink(1, 2, { connectionStrength: 0.8 });
-  graph.addLink(2, 3, { connectionStrength: 0.6 });
-  graph.addLink(0, 3, { connectionStrength: 0.1 });
+  graph.addLink(1, 2, { connectionStrength: 1 });
+  graph.addLink(0, 2, { connectionStrength: 1 });
+  graph.addLink(0, 3, { connectionStrength: 0});
+  graph.addLink(1, 3, { connectionStrength: 0});
+  graph.addLink(2, 3, { connectionStrength: 0});
 //   graph.addLink(3, 4, { connectionStrength: 0.9 });
 //   graph.addLink(4, 5, { connectionStrength: 0.4 });
 //   graph.addLink(5, 6, { connectionStrength: 0.1 });
